@@ -1,6 +1,7 @@
 import 'package:despesaspessoais/models/transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main(List<String> args) {
   runApp(ExpensesApp());
@@ -39,7 +40,6 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(title: Text("Despesas Pessoais"),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
@@ -66,7 +66,7 @@ class MyHomePage extends StatelessWidget {
                    ),
                    padding: EdgeInsets.all(10),
                    child: Text(
-                     tr.value.toString(),
+                    'R\$ ${ tr.value.toStringAsFixed(2)}' ,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -86,7 +86,8 @@ class MyHomePage extends StatelessWidget {
                      ),
 
                      ),
-                     Text(tr.date.toString(),
+                     Text(
+                      DateFormat('d MMM y').format(tr.date),
                      
                      style: TextStyle(
                        color: Colors.grey,
@@ -97,6 +98,49 @@ class MyHomePage extends StatelessWidget {
                ]),
              );
            } ).toList(),
+         ),
+         Card(
+          elevation: 5,
+          child: Padding(padding: EdgeInsets.all(10),
+          child: Column(children: [
+            TextField(
+             decoration: InputDecoration(
+              labelText: 'Título',
+             ),
+
+            ),
+            
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Valor (R\$):'
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+            
+              children: [
+                
+              TextButton( 
+                style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Colors.red,
+                  minimumSize: Size(150, 40),
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(5.0))
+                  )
+                ),
+              child: Text('Nova transação +', 
+              style: TextStyle(
+                fontSize: 15,
+               fontWeight: FontWeight.bold,),), 
+              
+              onPressed: (){},
+               )
+          ]),]
+          ),
+          ),
+
          )
         ],
       ),
